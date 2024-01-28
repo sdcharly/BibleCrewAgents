@@ -5,7 +5,7 @@ import json
 from crewai import Agent, Task, Crew, Process
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import Tool
+from langchain.tools import Tool
 
 # Initialize Flask app
 app = Flask(__name__)
