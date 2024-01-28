@@ -1,7 +1,7 @@
 Flask==2.0.1
 requests>=2.25.0
 json5
-langchain-community>=0.1.0
+langchain-community==0.0.27
 gunicorn==20.1.0
 Werkzeug~=2.0.0
 crewai
