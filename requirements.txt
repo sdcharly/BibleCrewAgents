@@ -5,3 +5,4 @@ crewai
 langchain
 langchain-google-genai
 gunicorn
+Werkzeug
