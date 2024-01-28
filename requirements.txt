@@ -7,3 +7,4 @@ langchain-google-genai
 gunicorn
 Werkzeug
 langchain-community
+duckduckgo-search
