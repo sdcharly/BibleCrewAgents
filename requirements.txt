@@ -1,7 +1,7 @@
 Flask==2.1.2
 requests==2.27.1
 json5==0.9.6
-crewai==0.1.0  # Adjust this version as needed
-langchain==0.1.0  # Adjust this version as needed
-langchain-google-genai==0.0.6  # Latest available version as of the error message
+crewai
+langchain
+langchain-google-genai
 gunicorn
