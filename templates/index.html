@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bible Verse Processor</title>
+</head>
+<body>
+    <h1>Bible Verse Processor</h1>
+    <form action="/" method="post">
+        <label for="verse">Enter a Bible Verse:</label><br>
+        <input type="text" id="verse" name="verse"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if result %}
+        <h2>Results:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>
