@@ -6,4 +6,4 @@ langchain
 langchain-google-genai
 gunicorn
 Werkzeug
-duckduckgo_search
+duckduckgo-search
