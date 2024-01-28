@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_mail import Mail, Message
 import os
 import requests
 import json
