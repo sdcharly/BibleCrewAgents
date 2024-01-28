@@ -11,6 +11,16 @@ from langchain.tools import tool
 # Initialize Flask app
 app = Flask(__name__)
 
+# Fetch mail configuration from environment variables
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))  # Defaulting to 587 if not set
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'True') == 'True'  # Converting string to boolean
+app.config['MAIL_USE_SSL'] = os.getenv('MAIL_USE_SSL', 'False') == 'True'  # Converting string to boolean
+
+mail = Mail(app)
+
 # Fetch API keys from environment variables
 serper_api_key = os.getenv("SERPER_API_KEY")
 google_api_key = os.getenv("GEMINI_API_KEY", "default-key")
