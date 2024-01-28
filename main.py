@@ -191,13 +191,22 @@ def index():
     return render_template('index.html', result=result)
 
     
-@app.route('/process_verse', methods=['GET'])
-def process_verse_route():
-    bible_verse = request.args.get('verse')
-    if not bible_verse:
-        return jsonify({"error": "No verse provided"}), 400
-    result = run_crewai(bible_verse)
-    return jsonify(result)
+@app.route('/process_verse', methods=['POST'])
+def process_verse():
+    verse = request.form['verse']
+    email = request.form['email']
+    result = run_crewai(verse)  # This is your function to process the verse
+
+    # Preparing the email message
+    msg = Message("Your Bible Verse Result", 
+                  sender='sdcharly@gmail.com', 
+                  recipients=[email])
+    msg.body = 'Here is the result of your request: \n\n' + str(result)
+
+    # Sending the email
+    mail.send(msg)
+
+    return "The result has been sent to your email."
 
 if __name__ == '__main__':
     app.run(debug=True)
