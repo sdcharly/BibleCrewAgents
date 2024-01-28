@@ -3,7 +3,7 @@ import os
 import requests
 import json
 from crewai import Agent, Task, Crew, Process
-from langchain.tools import DuckDuckGoSearchRun
+from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import Tool
 
