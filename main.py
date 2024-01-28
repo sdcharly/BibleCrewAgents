@@ -168,6 +168,11 @@ def run_crewai(bible_verse):
     return crew_result
 
 # Flask route for processing a Bible verse using Crew AI
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+    
 @app.route('/process_verse', methods=['GET'])
 def process_verse_route():
     bible_verse = request.args.get('verse')
