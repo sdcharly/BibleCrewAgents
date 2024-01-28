@@ -5,4 +5,5 @@ crewai
 langchain
 langchain-google-genai
 gunicorn
-Werkzeug
+Werkzeug==2.0.3
+
