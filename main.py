@@ -211,7 +211,7 @@ def process_verse():
 
         # Prepare and send the email
         msg = Message("Your Bible Verse Result",
-                      sender='sdcharly@gmail.com',
+                      sender='verse.insights@gmail.com',
                       recipients=[email])
         msg.body = 'Here is the result of your request: \n\n' + str(result)
         mail.send(msg)
