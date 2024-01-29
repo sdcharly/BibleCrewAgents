@@ -193,23 +193,29 @@ def index():
     
 @app.route('/process_verse', methods=['POST'])
 def process_verse():
-    verse = request.form['verse']
-    email = request.form['email']
-    result = run_crewai(verse)  # This is your function to process the verse
+    data = request.get_json()
+    verse = data.get('verse')
+    email = data.get('email')
 
-    # Preparing the email message
-    
-    return jsonify({"message": "Email processing started"})
-    
-    msg = Message("Your Bible Verse Result", 
-                  sender='sdcharly@gmail.com', 
-                  recipients=[email])
-    msg.body = 'Here is the result of your request: \n\n' + str(result)
+    if not verse or not email:
+        return jsonify({"error": "Verse or email not provided"}), 400
 
-    # Sending the email
-    mail.send(msg)
+    try:
+        # Process the verse with Crew AI
+        result = run_crewai(verse)
 
-    return "The result has been sent to your email."
+        # Prepare and send the email
+        msg = Message("Your Bible Verse Result",
+                      sender='sdcharly@gmail.com',
+                      recipients=[email])
+        msg.body = 'Here is the result of your request: \n\n' + str(result)
+        mail.send(msg)
+
+        return jsonify({"message": "Email sent successfully with the results."})
+    except Exception as e:
+        # Log the exception and inform the user
+        logging.error("Error processing verse or sending email", exc_info=True)
+        return jsonify({"error": "An error occurred while processing your request."}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
