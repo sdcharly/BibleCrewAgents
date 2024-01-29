@@ -2,16 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Verse Processor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Bible Verse Processor</h1>
-    <form action="/process_verse" method="post">
-        <label for="verse">Enter a Bible Verse:</label><br>
-        <input type="text" id="verse" name="verse"><br><br>
-        <label for="email">Enter your email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Submit">
-    </form>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="max-w-md mx-auto my-10 bg-white p-5 rounded-md shadow-sm">
+            <div class="text-center">
+                <h1 class="my-3 text-3xl font-semibold text-gray-700">Bible Verse Processor</h1>
+                <p class="text-gray-400">Enter a verse and your email to receive the results</p>
+            </div>
+            <div class="m-7">
+                <form action="/process_verse" method="post">
+                    <div class="mb-6">
+                        <label for="verse" class="block mb-2 text-sm text-gray-600">Bible Verse</label>
+                        <input type="text" name="verse" id="verse" placeholder="John 3:16" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                    </div>
+                    <div class="mb-6">
+                        <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
+                        <input type="email" name="email" id="email" placeholder="you@company.com" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                    </div>
+                    <div class="mb-6">
+                        <button type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Submit</button>
+                    </div>
+                    <p id="status" class="text-center text-gray-500">Processing will begin once you submit.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
