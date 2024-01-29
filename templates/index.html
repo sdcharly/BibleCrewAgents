@@ -73,38 +73,46 @@
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('/static/bible_books.json')
-                .then(response => response.json())
-                .then(data => {
-                    const bookDropdown = document.getElementById('book');
-                    for (const book in data) {
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/static/bible_books.json')
+            .then(response => response.json())
+            .then(data => {
+                const bookDropdown = document.getElementById('book');
+                const chapterDropdown = document.getElementById('chapter');
+
+                // Populate book dropdown
+                for (const book in data) {
+                    let option = document.createElement('option');
+                    option.value = book;
+                    option.textContent = book;
+                    bookDropdown.appendChild(option);
+                }
+
+                // Update chapter dropdown when a book is selected
+                bookDropdown.addEventListener('change', function() {
+                    const chapters = data[this.value];
+                    chapterDropdown.innerHTML = ''; // Clear existing options
+                    chapters.forEach(chapter => {
                         let option = document.createElement('option');
-                        option.value = book;
-                        option.textContent = book;
-                        bookDropdown.appendChild(option);
-                    }
-
-                    // Initial population of the chapter dropdown
-                    updateChapterDropdown(data[Object.keys(data)[0]]);
-
-                    bookDropdown.addEventListener('change', function() {
-                        updateChapterDropdown(data[this.value]);
+                        option.value = chapter;
+                        option.textContent = chapter;
+                        chapterDropdown.appendChild(option);
                     });
-                })
-                .catch(error => console.error('Error loading bible books:', error));
-        });
+                });
 
-        function updateChapterDropdown(chapters) {
-            const chapterDropdown = document.getElementById('chapter');
-            chapterDropdown.innerHTML = ''; // Clear previous options
-            chapters.forEach(chapter => {
-                let option = document.createElement('option');
-                option.value = chapter;
-                option.textContent = chapter;
-                chapterDropdown.appendChild(option);
-            });
-        }
+                // Initially populate the chapter dropdown for the first book
+                if (Object.keys(data).length > 0) {
+                    const firstBookChapters = data[Object.keys(data)[0]];
+                    firstBookChapters.forEach(chapter => {
+                        let option = document.createElement('option');
+                        option.value = chapter;
+                        option.textContent = chapter;
+                        chapterDropdown.appendChild(option);
+                    });
+                }
+            })
+            .catch(error => console.error('Error loading bible books:', error));
+    });
     </script>
 </body>
 </html>
