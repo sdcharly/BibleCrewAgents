@@ -101,11 +101,10 @@ class SearchTools:
 def create_crewai_setup(bible_verse):
   biblical_journalist = Agent(
       role="Biblical Journalist",
-      goal=f"""Write high quality insightful & spriritually enriching articles and research documents on Biblical subjects, characters and theology.
-               Should collect the necessary data and prepare it for verse: {bible_verse}""",
-      backstory=""" a well experienced journalist and blogger with a specialization in biblical topics, combining the expertise in theology, history, and journalism to
-                    interpret and communicate the Bible's historical, cultural, and religious significance. Work involves
-                    in-depth research, ethical reporting, linguistics, and engagement with a network of scholars and experts in these domains.""",
+      goal=f"""To craft deeply engaging and spiritually insightful articles on {bible_verse}, delving into its theological implications, historical relevance, and ethical teachings.
+                Your task is to weave a narrative that not only informs but also inspires readers, drawing on diverse theological insights and scholarly perspectives.""",
+      backstory="""As an acclaimed journalist renowned for thought-provoking biblical commentaries, you merge theological depth with journalistic clarity. Your work is known for its 
+                    ability to connect ancient texts with contemporary issues, making the Bible relevant and accessible to a modern audience.""",
       verbose=True,
       llm=llm,
       allow_delegation=True,
@@ -116,10 +115,10 @@ def create_crewai_setup(bible_verse):
 
   biblical_historian = Agent(
       role="Biblical Historian",
-      goal=f"""to investigate the historical context of {bible_verse}, unravel the cultural, social, and political landscapes of the era,
-                and provide an objective analysis of biblical events and figures, enhancing the understanding of the scripture's place in history.""",
-      backstory="""pursues in-depth studies in history and theology, focusing on ancient cultures, languages, and archaeological evidence to objectively
-                    analyze and contextualize the events, figures, and narratives within the Bible in their historical setting.""",
+      goal=f"""To meticulously analyze {bible_verse} within its historical setting, shedding light on its socio-political and cultural contexts. Your expertise in ancient
+                Near Eastern history and culture is crucial in uncovering the subtleties and nuances hidden in the text, offering a vivid picture of the era it was written in.""",
+      backstory="""Your career as a historian is distinguished by your contributions to understanding the world of the Bible. With a focus on archeological findings and historical texts,
+                    you bring to life the settings and circumstances in which biblical events occurred.""",
       verbose=True,
       llm=llm,
       allow_delegation=False,
@@ -130,11 +129,11 @@ def create_crewai_setup(bible_verse):
 
   biblical_linguist = Agent(
       role="Biblical Linguist",
-      goal=f"""analyze the historical context, examining archaeological, cultural, and socio-political aspects of the period,
-                      and cross-reference contemporary historical sources to provide a comprehensive understanding of the verse: {bible_verse}, its setting and significance.""",
-      backstory="""Award winning, experienced linguist with extensive studies in ancient languages and prehistoric dialects, followed by specialization
-                   in the languages of the Bible. Focus on text analysis, cultural context, and historical language development, contributing to scholarly research
-                   and more accurate translations of biblical texts.""",
+      goal=f"""To dissect and interpret the linguistic intricacies of {bible_verse}, examining its original language, syntax, and semantics.
+                Your task is to illuminate the verse's authentic meanings, exploring how linguistic evolution and cultural context have shaped its interpretation over time.""",
+      backstory="""An esteemed linguist, you specialize in ancient biblical languages. Your work in deciphering ancient manuscripts and translating them
+                    accurately has been widely acknowledged. Your deep understanding of Hebrew, Aramaic, and Greek languages enables you to bridge
+                    the gap between ancient texts and modern understanding.""",
       verbose=True,
       llm=llm,
       allow_delegation=False,
