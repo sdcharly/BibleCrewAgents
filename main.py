@@ -121,7 +121,7 @@ def create_crewai_setup(bible_verse):
                     you bring to life the settings and circumstances in which biblical events occurred.""",
       verbose=True,
       llm=llm,
-      allow_delegation=False,
+      allow_delegation=True,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
             ]
@@ -136,29 +136,30 @@ def create_crewai_setup(bible_verse):
                     the gap between ancient texts and modern understanding.""",
       verbose=True,
       llm=llm,
-      allow_delegation=False,
+      allow_delegation=True,
       tools=[
             SearchTools.search_internet,
             ]
   )
 
   task1=Task(
-      description=f"""As a biblical journalist preparing an article/blog on {bible_verse}, engage in a multi-disciplinary approach: consult Biblical Historian for insights into
-                   the verse's historical and cultural background, collaborate with Biblical Linguist to understand linguistic nuances and implications, and identify the author
-                    and audience of the verse. Gather extensive information, incorporating varied perspectives, especially from expert peers, to ensure a
-                    deeply researched, well-analyzed, and comprehensive exploration of {bible_verse} in your content.""",
+      description=f"""Embark on an investigative journey to craft an illuminating article on {bible_verse}. Dive deep into its theological significance, historical relevance, and ethical implications.
+                  Consult with the Biblical Historian for in-depth historical insights, and engage with the Biblical Linguist to decode linguistic subtleties.
+                  Your goal is to produce a piece that not only educates but also spiritually enriches the reader, by blending rigorous research, creative storytelling, and reflective analysis.""",
       agent=biblical_journalist,
   )
 
   task2=Task(
-      description=f"""analyze the historical context, examining archaeological, cultural, and socio-political aspects of the period,
-                      and cross-reference contemporary historical sources to provide a comprehensive understanding of the verse: {bible_verse}, its setting and significance.""",
+      description=f"""Your task is to unravel the historical tapestry surrounding {bible_verse}. Examine the archaeological findings, societal norms, and political climate of the period to shed
+                  light on the context of the verse. Collaborate with the Biblical Journalist to provide a rich, historical backdrop for their article, and offer insights to the Biblical Linguist
+                  to aid in their linguistic analysis. Your comprehensive understanding of the era’s history will illuminate the verse's true place in time.""",
       agent=biblical_historian,
   )
 
   task3=Task(
-      description=f"""analyze the original language, syntax, and semantics of {bible_verse}, considering linguistic variations and historical usage, to interpret its meaning, nuances,
-                      and potential translation intricacies within its cultural and historical context.""",
+      description=f"""Undertake a thorough linguistic analysis of {bible_verse}, exploring the nuances of its original languages. Assess how its syntax, semantics, and historical linguistic variations
+                  influence its interpretation. Work closely with the Biblical Historian to align your linguistic findings with historical contexts and assist the Biblical Journalist in crafting an
+                  article that resonates with accuracy and depth. Your expertise is key to unlocking the layered meanings and translating them for a contemporary audience.""",
       agent=biblical_linguist,
   )
 
