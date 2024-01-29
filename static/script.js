@@ -11,8 +11,9 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ verse: verse, email: email })
+        body: JSON.stringify({ verse: verse, email: email })
         })
+
         .then(response => response.json())
         .then(data => {
             // Update the status
