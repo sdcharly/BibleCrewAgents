@@ -198,6 +198,9 @@ def process_verse():
     result = run_crewai(verse)  # This is your function to process the verse
 
     # Preparing the email message
+    
+    return jsonify({"message": "Email processing started"})
+    
     msg = Message("Your Bible Verse Result", 
                   sender='sdcharly@gmail.com', 
                   recipients=[email])
