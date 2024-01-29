@@ -16,17 +16,29 @@
             <div class="m-7">
                 <form id="verse-form">
                     <div class="mb-6">
-                        <label for="verse" class="block mb-2 text-sm text-gray-600">Bible Verse</label>
-                        <input type="text" id="verse" placeholder="John 3:16" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                        <label for="book" class="block mb-2 text-sm text-gray-600">Book</label>
+                        <select id="book" name="book" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100">
+                            <!-- Options for books of the Bible will be populated here -->
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="chapter" class="block mb-2 text-sm text-gray-600">Chapter</label>
+                        <select id="chapter" name="chapter" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100">
+                            <!-- Options for chapters will be populated here -->
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label for="verse" class="block mb-2 text-sm text-gray-600">Verse</label>
+                        <input type="text" id="verse" name="verse" size="3" class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100">
                     </div>
                     <div class="mb-6">
                         <label for="email" class="block mb-2 text-sm text-gray-600">Your Email Address</label>
-                        <input type="email" id="email" placeholder="yourmail@company.com" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                        <input type="email" id="email" placeholder="yourmail@company.com" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100">
                     </div>
                     <div class="mb-6">
                         <button type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Submit</button>
                     </div>
-                    <p id="status" class="text-center text-gray-500">Processing will begin once you submit. You may close the page once submitted</p>
+                    <p id="status" class="text-center text-gray-500">Processing will begin once you submit. You may close the page once submitted.</p>
                 </form>
             </div>
         </div>
@@ -34,6 +46,8 @@
     <script>
         document.getElementById('verse-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const book = document.getElementById('book').value;
+            const chapter = document.getElementById('chapter').value;
             const verse = document.getElementById('verse').value;
             const email = document.getElementById('email').value;
             const statusDiv = document.getElementById('status');
@@ -41,7 +55,7 @@
             fetch('/process_verse', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ verse: verse, email: email })
+                body: JSON.stringify({ book: book, chapter: chapter, verse: verse, email: email })
             })
             .then(response => response.json())
             .then(data => {
@@ -51,6 +65,34 @@
                 console.error('Error:', error);
                 statusDiv.innerHTML = 'An error occurred.';
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/static/bible_books.json')
+                .then(response => response.json())
+                .then(data => {
+                    const bookDropdown = document.getElementById('book');
+                    for (const book in data) {
+                        let option = document.createElement('option');
+                        option.value = book;
+                        option.textContent = book;
+                        bookDropdown.appendChild(option);
+                    }
+
+                    bookDropdown.addEventListener('change', function() {
+                        const selectedBook = this.value;
+                        const chapters = data[selectedBook];
+                        const chapterDropdown = document.getElementById('chapter');
+                        chapterDropdown.innerHTML = ''; // Clear previous options
+                        chapters.forEach(chapter => {
+                            let option = document.createElement('option');
+                            option.value = chapter;
+                            option.textContent = chapter;
+                            chapterDropdown.appendChild(option);
+                        });
+                    });
+                })
+                .catch(error => console.error('Error loading bible books:', error));
         });
     </script>
 </body>
