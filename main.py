@@ -191,20 +191,23 @@ def index():
 
     
 @app.route('/process_verse', methods=['POST'])
-
 def process_verse():
     data = request.get_json()
     if data is None:
         return jsonify({"error": "No JSON data received"}), 400
+
+    book = data.get('book')
+    chapter = data.get('chapter')
     verse = data.get('verse')
     email = data.get('email')
 
-    if not verse or not email:
-        return jsonify({"error": "Verse or email not provided"}), 400
+    if not all([book, chapter, verse, email]):
+        return jsonify({"error": "Book, chapter, verse or email not provided"}), 400
 
     try:
-        # Process the verse with Crew AI
-        result = run_crewai(verse)
+        # Combine book, chapter, and verse for Crew AI processing
+        bible_verse = f"{book} {chapter}:{verse}"
+        result = run_crewai(bible_verse)
 
         # Prepare and send the email
         msg = Message("Your Bible Verse Result",
@@ -216,8 +219,9 @@ def process_verse():
         return jsonify({"message": "Email sent successfully with the results."})
     except Exception as e:
         # Log the exception and inform the user
-        logging.error("Error processing verse or sending email", exc_info=True)
+        app.logger.error("Error processing verse or sending email", exc_info=True)
         return jsonify({"error": "An error occurred while processing your request."}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
