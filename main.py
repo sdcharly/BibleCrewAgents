@@ -72,7 +72,7 @@ class SearchTools:
         else:
             return "Failed to search places."
 
-    @tool("Search for anything on the Bible & Christianity")
+    @tool("Search for a topic related to the Bible & Christianity")
     def answer_flowise_bible_question(bible_verse):
         """Ask any Bible related question and get relevant results."""
         top_result_to_return = 1
@@ -101,11 +101,11 @@ class SearchTools:
 def create_crewai_setup(bible_verse):
   biblical_journalist = Agent(
       role="Biblical Journalist",
-      goal=f"""Write very high quality insightful articles and research papers which are worthy to publish on Biblical subjects, characters and theology.
+      goal=f"""Write high quality insightful & spriritually enriching articles and research documents on Biblical subjects, characters and theology.
                Should collect the necessary data and prepare it for verse: {bible_verse}""",
-      backstory="""Experienced in journalism with a specialization in biblical topics, combining the expertise in theology, history, and journalism to
+      backstory=""" a well experienced journalist and blogger with a specialization in biblical topics, combining the expertise in theology, history, and journalism to
                     interpret and communicate the Bible's historical, cultural, and religious significance. Work involves
-                    in-depth research, ethical reporting, and engagement with a network of scholars and experts in these domains.""",
+                    in-depth research, ethical reporting, linguistics, and engagement with a network of scholars and experts in these domains.""",
       verbose=True,
       llm=llm,
       allow_delegation=True,
@@ -116,7 +116,7 @@ def create_crewai_setup(bible_verse):
 
   biblical_historian = Agent(
       role="Biblical Historian",
-      goal="""to investigate the historical context of the Bible, unravel the cultural, social, and political landscapes of the era,
+      goal=f"""to investigate the historical context of {bible_verse}, unravel the cultural, social, and political landscapes of the era,
                 and provide an objective analysis of biblical events and figures, enhancing the understanding of the scripture's place in history.""",
       backstory="""pursues in-depth studies in history and theology, focusing on ancient cultures, languages, and archaeological evidence to objectively
                     analyze and contextualize the events, figures, and narratives within the Bible in their historical setting.""",
@@ -130,10 +130,10 @@ def create_crewai_setup(bible_verse):
 
   biblical_linguist = Agent(
       role="Biblical Linguist",
-      goal=f""" to analyze and interpret the original languages of the Bible, such as Hebrew, Aramaic, and Greek,
+      goal=f""" to analyze and interpret the verse: {bible_verse} from its original language of the Bible, such as Hebrew, Aramaic, and Greek,
                 to understand scriptural texts in their authentic context and to elucidate their meanings, nuances,
                 and linguistic evolution over time.""",
-      backstory="""Highly skilled & extensive studies in ancient languages and linguistics, followed by specialization
+      backstory="""Award winning, experienced linguist with extensive studies in ancient languages and prehistoric dialects, followed by specialization
                    in the languages of the Bible. Focus on text analysis, cultural context, and historical language development, contributing to scholarly research
                    and more accurate translations of biblical texts.""",
       verbose=True,
