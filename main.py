@@ -192,8 +192,11 @@ def index():
 
     
 @app.route('/process_verse', methods=['POST'])
+
 def process_verse():
     data = request.get_json()
+    if data is None:
+        return jsonify({"error": "No JSON data received"}), 400
     verse = data.get('verse')
     email = data.get('email')
 
