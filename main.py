@@ -130,9 +130,8 @@ def create_crewai_setup(bible_verse):
 
   biblical_linguist = Agent(
       role="Biblical Linguist",
-      goal=f""" to analyze and interpret the verse: {bible_verse} from its original language of the Bible, such as Hebrew, Aramaic, and Greek,
-                to understand scriptural texts in their authentic context and to elucidate their meanings, nuances,
-                and linguistic evolution over time.""",
+      goal=f"""analyze the historical context, examining archaeological, cultural, and socio-political aspects of the period,
+                      and cross-reference contemporary historical sources to provide a comprehensive understanding of the verse: {bible_verse}, its setting and significance.""",
       backstory="""Award winning, experienced linguist with extensive studies in ancient languages and prehistoric dialects, followed by specialization
                    in the languages of the Bible. Focus on text analysis, cultural context, and historical language development, contributing to scholarly research
                    and more accurate translations of biblical texts.""",
