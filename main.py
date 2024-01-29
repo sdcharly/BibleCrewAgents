@@ -101,7 +101,7 @@ class SearchTools:
 def create_crewai_setup(bible_verse):
   biblical_journalist = Agent(
       role="Biblical Journalist",
-      goal=f"""Firstly recite: {bible_verse}. Then craft deeply engaging and spiritually insightful articles on {bible_verse}, delving into its theological implications, historical relevance, and ethical teachings.
+      goal=f"""To craft deeply engaging and spiritually insightful articles on {bible_verse}, delving into its theological implications, historical relevance, and ethical teachings.
                 Your task is to weave a narrative that not only informs but also inspires readers, drawing on diverse theological insights and scholarly perspectives.""",
       backstory="""As an acclaimed journalist renowned for thought-provoking biblical commentaries, you merge theological depth with journalistic clarity. Your work is known for its 
                     ability to connect ancient texts with contemporary issues, making the Bible relevant and accessible to a modern audience.""",
@@ -143,7 +143,7 @@ def create_crewai_setup(bible_verse):
   )
 
   task1=Task(
-      description=f"""Embark on an investigative journey to craft an illuminating article on {bible_verse}. Dive deep into its theological significance, historical relevance, and ethical implications.
+      description=f"""Firstly recite: {bible_verse}. Then embark on an investigative journey to craft an illuminating article on {bible_verse}. Dive deep into its theological significance, historical relevance, and ethical implications.
                   Consult with the Biblical Historian for in-depth historical insights, and engage with the Biblical Linguist to decode linguistic subtleties.
                   Your goal is to produce a piece that not only educates but also spiritually enriches the reader, by blending rigorous research, creative storytelling, and reflective analysis.""",
       agent=biblical_journalist,
