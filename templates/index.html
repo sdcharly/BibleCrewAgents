@@ -48,71 +48,72 @@
             </div>
         </div>
     </div>
+<script>
+document.getElementById('verse-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const book = document.getElementById('book').value;
+    const chapter = document.getElementById('chapter').value;
+    const verse = document.getElementById('verse').value;
+    const email = document.getElementById('email').value;
+    const statusDiv = document.getElementById('status');
 
-    <script>
-        document.getElementById('verse-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const book = document.getElementById('book').value;
-            const chapter = document.getElementById('chapter').value;
-            const verse = document.getElementById('verse').value;
-            const email = document.getElementById('email').value;
-            const statusDiv = document.getElementById('status');
-
-            fetch('/process_verse', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ book: book, chapter: chapter, verse: verse, email: email })
-            })
-            .then(response => response.json())
-            .then(data => {
-                statusDiv.innerHTML = 'Wait for the result in your email.';
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                statusDiv.innerHTML = 'An error occurred.';
-            });
-        });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/static/bible_books.json')
-            .then(response => response.json())
-            .then(data => {
-                const bookDropdown = document.getElementById('book');
-                const chapterDropdown = document.getElementById('chapter');
-
-                // Populate book dropdown
-                for (const book in data) {
-                    let option = document.createElement('option');
-                    option.value = book;
-                    option.textContent = book;
-                    bookDropdown.appendChild(option);
-                }
-
-                // Update chapter dropdown when a book is selected
-                bookDropdown.addEventListener('change', function() {
-                    const chapters = data[this.value];
-                    chapterDropdown.innerHTML = ''; // Clear existing options
-                    chapters.forEach(chapter => {
-                        let option = document.createElement('option');
-                        option.value = chapter;
-                        option.textContent = chapter;
-                        chapterDropdown.appendChild(option);
-                    });
-                });
-
-                // Initially populate the chapter dropdown for the first book
-                if (Object.keys(data).length > 0) {
-                    const firstBookChapters = data[Object.keys(data)[0]];
-                    firstBookChapters.forEach(chapter => {
-                        let option = document.createElement('option');
-                        option.value = chapter;
-                        option.textContent = chapter;
-                        chapterDropdown.appendChild(option);
-                    });
-                }
-            })
-            .catch(error => console.error('Error loading bible books:', error));
+    fetch('/process_verse', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ book, chapter, verse, email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        statusDiv.innerHTML = 'Wait for the result in your email.';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        statusDiv.innerHTML = 'An error occurred.';
     });
-    </script>
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/static/bible_books.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const bookDropdown = document.getElementById('book');
+            const chapterDropdown = document.getElementById('chapter');
+
+            for (const book in data) {
+                let option = document.createElement('option');
+                option.value = book;
+                option.textContent = book;
+                bookDropdown.appendChild(option);
+            }
+
+            bookDropdown.addEventListener('change', function() {
+                const chapters = data[this.value];
+                chapterDropdown.innerHTML = '';
+                chapters.forEach(chapter => {
+                    let option = document.createElement('option');
+                    option.value = chapter;
+                    option.textContent = chapter;
+                    chapterDropdown.appendChild(option);
+                });
+            });
+
+            if (Object.keys(data).length > 0) {
+                const firstBookChapters = data[Object.keys(data)[0]];
+                firstBookChapters.forEach(chapter => {
+                    let option = document.createElement('option');
+                    option.value = chapter;
+                    option.textContent = chapter;
+                    chapterDropdown.appendChild(option);
+                });
+            }
+        })
+        .catch(error => console.error('Error loading bible books:', error));
+});
+</script>
 </body>
 </html>
