@@ -14,14 +14,14 @@
                 <p class="text-gray-400">Enter a verse and your email to receive the results</p>
             </div>
             <div class="m-7">
-                <form action="/process_verse" method="post">
+                <form id="verse-form">
                     <div class="mb-6">
                         <label for="verse" class="block mb-2 text-sm text-gray-600">Bible Verse</label>
-                        <input type="text" name="verse" id="verse" placeholder="John 3:16" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                        <input type="text" id="verse" placeholder="John 3:16" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
                     </div>
                     <div class="mb-6">
                         <label for="email" class="block mb-2 text-sm text-gray-600">Email Address</label>
-                        <input type="email" name="email" id="email" placeholder="you@company.com" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
+                        <input type="email" id="email" placeholder="you@company.com" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-100" />
                     </div>
                     <div class="mb-6">
                         <button type="submit" class="w-full px-3 py-4 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none">Submit</button>
@@ -31,6 +31,27 @@
             </div>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.getElementById('verse-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const verse = document.getElementById('verse').value;
+            const email = document.getElementById('email').value;
+            const statusDiv = document.getElementById('status');
+
+            fetch('/process_verse', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ verse: verse, email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                statusDiv.innerHTML = 'Result will be sent to your email.';
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                statusDiv.innerHTML = 'An error occurred.';
+            });
+        });
+    </script>
 </body>
 </html>
