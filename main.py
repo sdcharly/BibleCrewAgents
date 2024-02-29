@@ -37,7 +37,7 @@ if not groq_api_key:
     raise ValueError("GROQ_API_KEY is not set in the environment variables.")
 
 # Initializing dependencies
-groq_llm = Groq(model="mixtral-8x7b-32768", temperature=0.5, groq_api_key=groq_api_key)
+groq_llm = Groq()
 llm = ChatGoogleGenerativeAI(model="gemini-pro", verbose=True, temperature=0.5, google_api_key=google_api_key)
 duckduckgo_search = DuckDuckGoSearchRun()
 
