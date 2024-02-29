@@ -8,6 +8,7 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_google_genai import ChatGoogleGenerativeAI
 # from langchain_community.tools import Tool
 from langchain.tools import tool
+from groq import Groq
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -25,14 +26,18 @@ mail = Mail(app)
 # Fetch API keys from environment variables
 serper_api_key = os.getenv("SERPER_API_KEY")
 google_api_key = os.getenv("GEMINI_API_KEY", "default-key")
+groq_api_key = os.getenv("GROQ_API_KEY")
 
 # Check if the API keys are available
 if not serper_api_key:
     raise ValueError("SERPER_API_KEY is not set in the environment variables.")
 if not google_api_key:
     raise ValueError("GEMINI_API_KEY is not set in the environment variables.")
+if not groq_api_key:
+    raise ValueError("GROQ_API_KEY is not set in the environment variables.")
 
 # Initializing dependencies
+groq_llm = Groq(model="mixtral-8x7b-32768", groq_api_key=groq_api_key)
 llm = ChatGoogleGenerativeAI(model="gemini-pro", verbose=True, temperature=0.5, google_api_key=google_api_key)
 duckduckgo_search = DuckDuckGoSearchRun()
 
@@ -106,7 +111,7 @@ def create_crewai_setup(bible_verse):
       backstory="""As an acclaimed journalist renowned for thought-provoking biblical commentaries, you merge theological depth with journalistic clarity. Your work is known for its 
                     ability to connect ancient texts with contemporary issues, making the Bible relevant and accessible to a modern audience.""",
       verbose=True,
-      llm=llm,
+      llm=groq_llm,
       allow_delegation=True,
       tools=[duckduckgo_search,
              SearchTools.answer_flowise_bible_question,
@@ -120,7 +125,7 @@ def create_crewai_setup(bible_verse):
       backstory="""Your career as a historian is distinguished by your contributions to understanding the world of the Bible. With a focus on archeological findings and historical texts,
                     you bring to life the settings and circumstances in which biblical events occurred.""",
       verbose=True,
-      llm=llm,
+      llm=groq_llm,
       allow_delegation=True,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
