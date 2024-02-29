@@ -111,7 +111,7 @@ def create_crewai_setup(bible_verse):
       backstory="""As an acclaimed journalist renowned for thought-provoking biblical commentaries, you merge theological depth with journalistic clarity. Your work is known for its 
                     ability to connect ancient texts with contemporary issues, making the Bible relevant and accessible to a modern audience.""",
       verbose=True,
-      llm=groq_llm,
+      llm=llm,
       allow_delegation=True,
       tools=[duckduckgo_search,
              SearchTools.answer_flowise_bible_question,
@@ -125,7 +125,7 @@ def create_crewai_setup(bible_verse):
       backstory="""Your career as a historian is distinguished by your contributions to understanding the world of the Bible. With a focus on archeological findings and historical texts,
                     you bring to life the settings and circumstances in which biblical events occurred.""",
       verbose=True,
-      llm=groq_llm,
+      llm=llm,
       allow_delegation=True,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
