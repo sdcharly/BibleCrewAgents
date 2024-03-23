@@ -176,7 +176,7 @@ def create_crewai_setup(bible_verse):
 
   product_crew = Crew(
       agents=[biblical_journalist,biblical_historian,biblical_linguist],
-      tasks=[task1,task2,task3],
+      tasks=[task3,task2,task1],
       verbose=2,
       process=Process.sequential,
   )
