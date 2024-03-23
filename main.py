@@ -8,7 +8,7 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_google_genai import ChatGoogleGenerativeAI
 # from langchain_community.tools import Tool
 from langchain.tools import tool
-from groq import Groq
+from langchain_groq import ChatGroq
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -37,7 +37,7 @@ if not groq_api_key:
     raise ValueError("GROQ_API_KEY is not set in the environment variables.")
 
 # Initializing dependencies
-groq_llm = Groq()
+groq_llm = ChatGroq(temperature=0, groq_api_key=groq_api_key, model_name="mixtral-8x7b-32768")
 llm = ChatGoogleGenerativeAI(model="gemini-pro", verbose=True, temperature=0.5, google_api_key=google_api_key)
 duckduckgo_search = DuckDuckGoSearchRun()
 
@@ -128,7 +128,7 @@ def create_crewai_setup(bible_verse):
                 reconstruct the environments and conditions under which the seminal events of the Bible unfolded, breathing life into the ancient narratives
                 and connecting the past with the present in a vivid and compelling manner.""",
       verbose=True,
-      llm=llm,
+      llm=groq_llm,
       allow_delegation=True,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
