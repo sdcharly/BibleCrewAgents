@@ -122,7 +122,7 @@ def create_crewai_setup(bible_verse):
 
   biblical_historian = Agent(
       role="Biblical Historian",
-      goal=f"""Illuminate {bible_verse} by exploring its historical, socio-political, and cultural contexts, offering a vivid snapshot of its origins.""",
+      goal=f"""in short words, illuminate {bible_verse} by exploring its historical, socio-political, and cultural contexts, offering a vivid snapshot of its origins.""",
       backstory="""Your illustrious career as a biblical historian is marked by groundbreaking contributions that have deepened our understanding of the 
                 ancient world surrounding the Bible. Through meticulous analysis of archaeological discoveries and historical documents, you masterfully 
                 reconstruct the environments and conditions under which the seminal events of the Bible unfolded, breathing life into the ancient narratives
@@ -130,14 +130,14 @@ def create_crewai_setup(bible_verse):
       verbose=True,
       llm=llm,
       allow_delegation=False,
-      tools=[SearchTools.search_places,
+      tools=[
              SearchTools.search_internet,
             ]
   )
 
   biblical_linguist = Agent(
       role="Biblical Linguist",
-      goal=f"""Unlock the true essence of {bible_verse} by delving into its original language, syntax, and semantics, revealing how words and meanings
+      goal=f"""Unlock the true essence of {bible_verse} in top 5 bullet points by delving into its original language, syntax, and semantics, revealing how words and meanings
                 have transformed across time and cultures.""",
       backstory="""As a revered linguist specializing in the ancient languages of the Bible, your journey in deciphering and translating ancient manuscripts
                  has garnered widespread acclaim. With an unparalleled mastery of Hebrew, Aramaic, and Greek, you stand as a luminary in the field, skillfully 
