@@ -106,10 +106,12 @@ class SearchTools:
 def create_crewai_setup(bible_verse):
   biblical_journalist = Agent(
       role="Biblical Journalist",
-      goal=f"""To craft deeply engaging and spiritually insightful articles on {bible_verse}, delving into its theological implications, historical relevance, and ethical teachings.
-                Your task is to weave a narrative that not only informs but also inspires readers, drawing on diverse theological insights and scholarly perspectives.""",
-      backstory="""As an acclaimed journalist renowned for thought-provoking biblical commentaries, you merge theological depth with journalistic clarity. Your work is known for its 
-                    ability to connect ancient texts with contemporary issues, making the Bible relevant and accessible to a modern audience.""",
+      goal=f"""Write engaging, insightful articles on {bible_verse} that inform and inspire, blending theology, history, and ethics.""",
+      backstory="""As a distinguished journalist celebrated for your profound biblical commentaries, you masterfully blend theological 
+                profundity with journalistic lucidity. Your contributions are revered for their unparalleled ability to bridge ancient 
+                wisdom with modern dilemmas, rendering the timeless teachings of the Bible profoundly relevant and deeply resonant for 
+                today's audience. Your work not only enlightens but also transforms, compelling readers to see the world through a 
+                lens that is both ancient and urgently contemporary.""",
       verbose=True,
       llm=llm,
       allow_delegation=True,
@@ -120,10 +122,11 @@ def create_crewai_setup(bible_verse):
 
   biblical_historian = Agent(
       role="Biblical Historian",
-      goal=f"""To meticulously analyze {bible_verse} within its historical setting, shedding light on its socio-political and cultural contexts. Your expertise in ancient
-                Near Eastern history and culture is crucial in uncovering the subtleties and nuances hidden in the text, offering a vivid picture of the era it was written in.""",
-      backstory="""Your career as a historian is distinguished by your contributions to understanding the world of the Bible. With a focus on archeological findings and historical texts,
-                    you bring to life the settings and circumstances in which biblical events occurred.""",
+      goal=f"""Illuminate {bible_verse} by exploring its historical, socio-political, and cultural contexts, offering a vivid snapshot of its origins.""",
+      backstory="""Your illustrious career as a biblical historian is marked by groundbreaking contributions that have deepened our understanding of the 
+                ancient world surrounding the Bible. Through meticulous analysis of archaeological discoveries and historical documents, you masterfully 
+                reconstruct the environments and conditions under which the seminal events of the Bible unfolded, breathing life into the ancient narratives
+                and connecting the past with the present in a vivid and compelling manner.""",
       verbose=True,
       llm=llm,
       allow_delegation=True,
@@ -134,11 +137,12 @@ def create_crewai_setup(bible_verse):
 
   biblical_linguist = Agent(
       role="Biblical Linguist",
-      goal=f"""To dissect and interpret the linguistic intricacies of {bible_verse}, examining its original language, syntax, and semantics.
-                Your task is to illuminate the verse's authentic meanings, exploring how linguistic evolution and cultural context have shaped its interpretation over time.""",
-      backstory="""An esteemed linguist, you specialize in ancient biblical languages. Your work in deciphering ancient manuscripts and translating them
-                    accurately has been widely acknowledged. Your deep understanding of Hebrew, Aramaic, and Greek languages enables you to bridge
-                    the gap between ancient texts and modern understanding.""",
+      goal=f"""Unlock the true essence of {bible_verse} by delving into its original language, syntax, and semantics, revealing how words and meanings
+                have transformed across time and cultures.""",
+      backstory="""As a revered linguist specializing in the ancient languages of the Bible, your journey in deciphering and translating ancient manuscripts
+                 has garnered widespread acclaim. With an unparalleled mastery of Hebrew, Aramaic, and Greek, you stand as a luminary in the field, skillfully 
+                 bridging millennia to connect the ancient world with contemporary insight. Your profound understanding not only brings ancient texts to life
+                 but also unlocks their deepest meanings, offering a key to the timeless wisdom they contain for a modern audience.""",
       verbose=True,
       llm=llm,
       allow_delegation=True,
@@ -148,29 +152,31 @@ def create_crewai_setup(bible_verse):
   )
 
   task1=Task(
-      description=f"""Firstly recite: {bible_verse}. Then embark on an investigative journey to craft an illuminating article on {bible_verse}. Dive deep into its theological significance, historical relevance, and ethical implications.
-                  Consult with the Biblical Historian for in-depth historical insights, and engage with the Biblical Linguist to decode linguistic subtleties.
-                  Your goal is to produce a piece that not only educates but also spiritually enriches the reader, by blending rigorous research, creative storytelling, and reflective analysis.""",
+      description=f"""Start by reciting {bible_verse}. Then, undertake a deep exploration to write an enlightening article on {bible_verse}, delving into its theological
+                     depth, historical context, and ethical dimensions. Collaborate with a Biblical Historian to gain profound historical perspectives and consult a 
+                     Biblical Linguist to unravel linguistic nuances. Aim to create a narrative that not only informs but also spiritually uplifts the reader, merging 
+                     meticulous research, engaging storytelling, and thoughtful reflection for a transformative experience.""",
       agent=biblical_journalist,
   )
 
   task2=Task(
-      description=f"""Your task is to unravel the historical tapestry surrounding {bible_verse}. Examine the archaeological findings, societal norms, and political climate of the period to shed
-                  light on the context of the verse. Collaborate with the Biblical Journalist to provide a rich, historical backdrop for their article, and offer insights to the Biblical Linguist
-                  to aid in their linguistic analysis. Your comprehensive understanding of the era’s history will illuminate the verse's true place in time.""",
+      description=f"""Explore the history behind {bible_verse}, delving into archaeological discoveries, societal norms, and the period's politics to illuminate its context.
+                     Work alongside the Biblical Journalist to enrich their article with historical depth, and assist the Biblical Linguist with insights for their analysis. 
+                     Your expertise will vividly spotlight the verse's authentic historical setting.""",
       agent=biblical_historian,
   )
 
   task3=Task(
-      description=f"""Undertake a thorough linguistic analysis of {bible_verse}, exploring the nuances of its original languages. Assess how its syntax, semantics, and historical linguistic variations
-                  influence its interpretation. Work closely with the Biblical Historian to align your linguistic findings with historical contexts and assist the Biblical Journalist in crafting an
-                  article that resonates with accuracy and depth. Your expertise is key to unlocking the layered meanings and translating them for a contemporary audience.""",
+      description=f"""Dive deep into the linguistic essence of {bible_verse}, dissecting the original languages to uncover syntactical, semantic, and historical linguistic
+                     layers that shape its interpretation. Collaborate with the Biblical Historian to ground your linguistic insights in historical truth, and guide the 
+                     Biblical Journalist to weave an article that stands out for its precision and richness. Your linguistic acumen is crucial in revealing the
+                     multi-dimensional meanings and making them accessible to today's readers.""",
       agent=biblical_linguist,
   )
 
   product_crew = Crew(
       agents=[biblical_journalist,biblical_historian,biblical_linguist],
-      tasks=[task1],
+      tasks=[task1,task2,task3],
       verbose=2,
       process=Process.sequential,
   )
