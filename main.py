@@ -6,9 +6,9 @@ import json
 from crewai import Agent, Task, Crew, Process
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_google_genai import ChatGoogleGenerativeAI
-# from langchain_community.tools import Tool
 from langchain.tools import tool
 from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -37,7 +37,12 @@ if not groq_api_key:
     raise ValueError("GROQ_API_KEY is not set in the environment variables.")
 
 # Initializing dependencies
-groq_llm = ChatGroq(temperature=0, groq_api_key=groq_api_key, model_name="mixtral-8x7b-32768")
+groq_llm = ChatOpenAI(
+    openai_api_base="https://api.groq.com/openai/v1", # https://api.openai.com/v1 or https://api.groq.com/openai/v1 
+    openai_api_key=os.getenv("GROQ_API_KEY"), # os.getenv("OPENAI_API_KEY") or os.getenv("GROQ_API_KEY")
+    model_name="mixtral-8x7b-32768" #  gpt-4-turbo-preview or mixtral-8x7b-32768 
+)
+# groq_llm = ChatGroq(temperature=0, groq_api_key=groq_api_key, model_name="mixtral-8x7b-32768")
 llm = ChatGoogleGenerativeAI(model="gemini-pro", verbose=True, temperature=0.5, google_api_key=google_api_key)
 duckduckgo_search = DuckDuckGoSearchRun()
 
