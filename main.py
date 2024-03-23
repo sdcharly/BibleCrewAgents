@@ -113,7 +113,7 @@ def create_crewai_setup(bible_verse):
                 today's audience. Your work not only enlightens but also transforms, compelling readers to see the world through a 
                 lens that is both ancient and urgently contemporary.""",
       verbose=True,
-      llm=llm,
+      llm=groq_llm,
       allow_delegation=True,
       tools=[duckduckgo_search,
              SearchTools.answer_flowise_bible_question,
@@ -128,7 +128,7 @@ def create_crewai_setup(bible_verse):
                 reconstruct the environments and conditions under which the seminal events of the Bible unfolded, breathing life into the ancient narratives
                 and connecting the past with the present in a vivid and compelling manner.""",
       verbose=True,
-      llm=groq_llm,
+      llm=llm,
       allow_delegation=True,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
@@ -144,7 +144,7 @@ def create_crewai_setup(bible_verse):
                  bridging millennia to connect the ancient world with contemporary insight. Your profound understanding not only brings ancient texts to life
                  but also unlocks their deepest meanings, offering a key to the timeless wisdom they contain for a modern audience.""",
       verbose=True,
-      llm=groq_llm,
+      llm=llm,
       allow_delegation=True,
       tools=[
             SearchTools.search_internet,
@@ -176,7 +176,7 @@ def create_crewai_setup(bible_verse):
 
   product_crew = Crew(
       agents=[biblical_journalist,biblical_historian,biblical_linguist],
-      tasks=[task3,task2,task1],
+      tasks=[task1],
       verbose=2,
       process=Process.sequential,
   )
