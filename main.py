@@ -129,7 +129,7 @@ def create_crewai_setup(bible_verse):
                 and connecting the past with the present in a vivid and compelling manner.""",
       verbose=True,
       llm=llm,
-      allow_delegation=True,
+      allow_delegation=False,
       tools=[SearchTools.search_places,
              SearchTools.search_internet,
             ]
@@ -145,14 +145,14 @@ def create_crewai_setup(bible_verse):
                  but also unlocks their deepest meanings, offering a key to the timeless wisdom they contain for a modern audience.""",
       verbose=True,
       llm=llm,
-      allow_delegation=True,
+      allow_delegation=False,
       tools=[
             SearchTools.search_internet,
             ]
   )
 
   task1=Task(
-      description=f"""Start by reciting {bible_verse}. Then, undertake a deep exploration to write an enlightening article on {bible_verse}, delving into its theological
+      description=f"""Start by quoting {bible_verse}. Then, undertake a deep exploration to write an enlightening article on {bible_verse}, delving into its theological
                      depth, historical context, and ethical dimensions. Collaborate with a Biblical Historian to gain profound historical perspectives and consult a 
                      Biblical Linguist to unravel linguistic nuances. Aim to create a narrative that not only informs but also spiritually uplifts the reader, merging 
                      meticulous research, engaging storytelling, and thoughtful reflection for a transformative experience.""",
@@ -176,7 +176,7 @@ def create_crewai_setup(bible_verse):
 
   product_crew = Crew(
       agents=[biblical_journalist,biblical_historian,biblical_linguist],
-      tasks=[task1],
+      tasks=[task3,task2,task1],
       verbose=2,
       process=Process.sequential,
   )
