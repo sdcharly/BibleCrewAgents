@@ -144,7 +144,7 @@ def create_crewai_setup(bible_verse):
                  bridging millennia to connect the ancient world with contemporary insight. Your profound understanding not only brings ancient texts to life
                  but also unlocks their deepest meanings, offering a key to the timeless wisdom they contain for a modern audience.""",
       verbose=True,
-      llm=llm,
+      llm=groq_llm,
       allow_delegation=True,
       tools=[
             SearchTools.search_internet,
